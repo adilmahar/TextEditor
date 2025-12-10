@@ -52,21 +52,27 @@
               </component>
             </children>
           </grid>
-          <grid id="65b2c" binding="SearchPane" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="2">
+          <grid id="65b2c" binding="CustomizePane" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="2">
             <constraints border-constraint="Center"/>
             <properties/>
             <border type="none"/>
             <children>
-              <component id="318ee" class="javax.swing.JTextField" binding="SearchField">
+              <component id="1d317" class="javax.swing.JLabel" binding="Size">
                 <constraints/>
                 <properties>
-                  <preferredSize width="250" height="25"/>
+                  <text value="Set Text Size: "/>
                 </properties>
               </component>
-              <component id="8ed6c" class="javax.swing.JButton" binding="SearchButton">
+              <component id="76d3a" class="javax.swing.JButton" binding="inc">
                 <constraints/>
                 <properties>
-                  <text value="Search"/>
+                  <text value="+"/>
+                </properties>
+              </component>
+              <component id="adde8" class="javax.swing.JButton" binding="dec">
+                <constraints/>
+                <properties>
+                  <text value="-"/>
                 </properties>
               </component>
             </children>

@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.io.*;
 
 public class MainFrame extends JFrame{
+
     private JPanel MainPanel;
     private JButton CreateNew;
     private JPanel ButtomPanel;
@@ -11,22 +12,26 @@ public class MainFrame extends JFrame{
     private JButton SaveFile;
     private JButton DeleteFile;
     private JTextArea textArea1;
-    private JTextField SearchField;
-    private JButton SearchButton;
-    private JPanel SearchPane;
+
+    private JPanel CustomizePane;
     private JButton ClearB;
+    private JLabel Size;
+    private JButton dec;
+    private JButton inc;
     private File currentFile = null;
     private String lastState;
     private final StackLinkedList<String> undoStack = new StackLinkedList<>(100);
     private final StackLinkedList<String> redoStack = new StackLinkedList<>(100);
     private boolean isChangingProgrammatically = false;
+    private int defaultFontSize=20;
 
     private boolean isUndoing = false;
     private boolean isRedoing = false;
 
     public MainFrame() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-        SearchField.setSize(new Dimension(100,100));
+
+
         textArea1.setMargin(new Insets(10, 10, 10, 10)); //Add Padding
         textArea1.setFont(new Font("Arial", Font.PLAIN, 20));  // 18 = new font size
         //textArea1.setText("Please Create or Open a new File Before writing your Text!\nAny Text Entered Here without opening or creating a new file cannot be saved\nand it will be delete if you create a new file");
@@ -41,7 +46,20 @@ public class MainFrame extends JFrame{
         UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         textArea1.setLineWrap(true); // Disable line wrapping for horizontal scrolling
 
-
+        inc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                defaultFontSize++;
+                textArea1.setFont(new Font("Arial", Font.PLAIN, defaultFontSize));
+            }
+        });
+        dec.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                defaultFontSize--;
+                textArea1.setFont(new Font("Arial", Font.PLAIN, defaultFontSize));
+            }
+        });
         ClearB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -68,14 +86,6 @@ public class MainFrame extends JFrame{
 //            }
 //        });
 
-        SearchButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String textToFind = SearchField.getText();
-                String textToFindFrom = textArea1.getText();
-
-            }
-        });
         CreateNew.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -294,7 +304,7 @@ public class MainFrame extends JFrame{
             new MainFrame();
         }
         catch (Exception e){
-
+            e.printStackTrace();
         }
     }
 

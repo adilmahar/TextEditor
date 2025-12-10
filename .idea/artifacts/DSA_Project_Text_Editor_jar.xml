@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DSA Project Text Editor:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DSA_Project_Text_Editor_jar</output-path>
+    <root id="archive" name="DSA Project Text Editor.jar">
+      <element id="module-output" name="DSA Project Text Editor" />
+    </root>
+  </artifact>
+</component>

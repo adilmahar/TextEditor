@@ -111,6 +111,13 @@ public class MainFrame extends JFrame{
                 if (option == JFileChooser.APPROVE_OPTION) {
                     File previousFile = currentFile;
                     currentFile = fileChooser.getSelectedFile();
+
+                    if(!currentFile.getName().toLowerCase().endsWith(".txt")){ //Check if the file selected is a text file or Not.
+                        JOptionPane.showMessageDialog(MainFrame.this,"Please Select a .txt File!","Error",JOptionPane.ERROR_MESSAGE);
+                        currentFile = previousFile;
+
+                        return;
+                    }
                     try (BufferedReader reader = new BufferedReader(new FileReader(currentFile))) {
                         StringBuilder content = new StringBuilder();
                         String line;

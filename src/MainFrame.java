@@ -109,6 +109,7 @@ public class MainFrame extends JFrame{
                 JFileChooser fileChooser = new JFileChooser();
                 int option = fileChooser.showOpenDialog(MainFrame.this);
                 if (option == JFileChooser.APPROVE_OPTION) {
+                    File previousFile = currentFile;
                     currentFile = fileChooser.getSelectedFile();
                     try (BufferedReader reader = new BufferedReader(new FileReader(currentFile))) {
                         StringBuilder content = new StringBuilder();

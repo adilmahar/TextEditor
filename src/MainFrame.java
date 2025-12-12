@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 
 public class MainFrame extends JFrame{
@@ -108,10 +109,10 @@ public class MainFrame extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 int option = fileChooser.showOpenDialog(MainFrame.this);
-                if (option == JFileChooser.APPROVE_OPTION) {
-                    File previousFile = currentFile;
-                    currentFile = fileChooser.getSelectedFile();
+                File previousFile = currentFile;
 
+                if (option == JFileChooser.APPROVE_OPTION) {
+                    currentFile = fileChooser.getSelectedFile();
                     if(!currentFile.getName().toLowerCase().endsWith(".txt")){ //Check if the file selected is a text file or Not.
                         JOptionPane.showMessageDialog(MainFrame.this,"Please Select a .txt File!","Error",JOptionPane.ERROR_MESSAGE);
                         currentFile = previousFile;

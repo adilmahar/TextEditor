@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.*;
 
 public class MainFrame extends JFrame{
@@ -25,7 +24,7 @@ public class MainFrame extends JFrame{
     private final StackLinkedList<String> redoStack = new StackLinkedList<>(100);
     private boolean isChangingProgrammatically = false;
     private int defaultFontSize=20;
-
+    private String[] VersionControl = new String[100];
     private boolean isUndoing = false;
     private boolean isRedoing = false;
 
@@ -104,15 +103,18 @@ public class MainFrame extends JFrame{
                 isUndoing = false;
             }
         });
+
+
+        // Stores Version file text into version control string arr. YK what to do next
         OpenFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 int option = fileChooser.showOpenDialog(MainFrame.this);
-                File previousFile = currentFile;
-
                 if (option == JFileChooser.APPROVE_OPTION) {
+                    File previousFile = currentFile;
                     currentFile = fileChooser.getSelectedFile();
+
                     if(!currentFile.getName().toLowerCase().endsWith(".txt")){ //Check if the file selected is a text file or Not.
                         JOptionPane.showMessageDialog(MainFrame.this,"Please Select a .txt File!","Error",JOptionPane.ERROR_MESSAGE);
                         currentFile = previousFile;
@@ -247,6 +249,7 @@ public class MainFrame extends JFrame{
                 if (!isUndoing && !isRedoing) {
                     System.out.println("Value Entered In the UndoStack (No Undo) Entering Text previous state: "  + lastState); // For Debugging
                     undoStack.push(lastState);
+                    redoStack.flush();
                 }
                 lastState = textArea1.getText();
             }

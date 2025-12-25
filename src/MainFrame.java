@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -110,6 +111,8 @@ public class MainFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
+
+
                 int option = fileChooser.showOpenDialog(MainFrame.this);
                 if (option == JFileChooser.APPROVE_OPTION) {
                     File previousFile = currentFile;
@@ -127,6 +130,7 @@ public class MainFrame extends JFrame{
                         while ((line = reader.readLine()) != null) {
                             content.append(line).append("\n");
                         }
+
                         setTitle(currentFile.getName());
                         textArea1.setText(content.toString());
                         undoStack.flush();
@@ -145,7 +149,10 @@ public class MainFrame extends JFrame{
 
                 if (option == JFileChooser.APPROVE_OPTION) {
                     File fileToDelete = fileChooser.getSelectedFile();
-
+                    if(!fileToDelete.getName().endsWith(".txt")){
+                        JOptionPane.showMessageDialog(MainFrame.this,"We can only delete .txt files","Error",JOptionPane.INFORMATION_MESSAGE);
+                        return;
+                    }
                     int confirm = JOptionPane.showConfirmDialog(MainFrame.this,
                             "Are you sure you want to delete '" + fileToDelete.getName() + "'?",
                             "Confirm Delete", JOptionPane.YES_NO_OPTION);
@@ -159,6 +166,7 @@ public class MainFrame extends JFrame{
                                 textArea1.setText("");
                                 undoStack.flush();
                                 currentFile = null;
+                                redoStack.flush();
                                 setTitle("Text Editor");
                             }
                         } else {
@@ -227,9 +235,10 @@ public class MainFrame extends JFrame{
             }
         });
 
+
         textArea1.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
 
-            private String lastState = textArea1.getText();
+            private String lastState ="";
 
             @Override
             public void insertUpdate(javax.swing.event.DocumentEvent e) {
@@ -251,7 +260,9 @@ public class MainFrame extends JFrame{
                     undoStack.push(lastState);
                     redoStack.flush();
                 }
+
                 lastState = textArea1.getText();
+                System.out.println("Change Detected Entering Value Last State: "+ lastState );
             }
         });
 
